@@ -1,0 +1,11 @@
+      <div class="card small {{ hug.colour }}" style="max-height:250px">
+        <div class="card-content">
+          <span class="card-title black-text"><a href="{% url "user" hug.source.username %}">{{ hug.source.username }}</a><small> {% if hug.inspiration.target == hug.target %}re{% endif %}hugged </small>{% if hug.target == hug.source %}self{% else %}<a href="{% url "user" hug.target.username %}">{{ hug.target.username }}</a>{% endif %}{% if hug.inspiration.source == hug.target %}<small> back{% endif %}</small></span>
+          <p><small><abbr class="timeago" title="{{ hug.timestamp | date:"Y-m-dTH:i:s" }}Z">{{ hug.timestamp | date:"Y-m-d H:i:s" }} UTC</abbr>{% if hug.inspiration %} after <a href="{% url "user" hug.inspiration.source.username %}">{{ hug.inspiration.source.username }}</a> {% if hug.inspiration.inspiration.target == hug.inspiration.target %}re{% endif %}hugged <a href="{% url "user" hug.inspiration.target.username %}">{{ hug.inspiration.target.username }}</a>{% if hug.inspiration.inspiration.source == hug.inspiration.target %} back{% endif %}{% endif %}</small></p>
+          <p><a href="{% url "history" hug.pk %}"><small>{{ hug.descendants | length }} hugs descending</small></a></p>
+        </div>
+        <div class="card-action">
+          <a href="{% url "rehug" hug.pk %}" title="Send a hug to {{ hug.target.username }} too"><i class="material-icons">forward</i>Rehug</a>
+          <a href="{% url "hugback" hug.pk %}" title="Send a hug to {{ hug.source.username }}"><i class="material-icons">reply</i>Hug back</a>
+        </div>
+      </div>

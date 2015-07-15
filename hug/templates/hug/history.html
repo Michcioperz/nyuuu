@@ -1,0 +1,21 @@
+{% extends "hug/core.html" %}
+{% load hugnet %}
+{% block body %}
+  <div class="container row">
+    {% for x in hug.history %}
+    {% with xs=hug|grandpa:x %}<div class="col s12 m{{ xs|add:"-12"|cut:"-" }}">
+      {% hugrender x %}
+    </div><div class="col hide-on-small-only m{{ xs }}"><div class="card small" style="max-height:250px"></div></div>{% endwith %}
+    {% endfor %}
+    {% if hug.history|length > 0 %}<div class="col s12"><p class="center flow-text">and then</p></div>{% endif %}
+    <div class="col s12">
+      {% hugrender hug %}
+    </div>
+    {% if hug.descendants|length > 0 %}<div class="col s12"><p class="center flow-text">and then</p></div>{% endif %}
+    {% for x in hug.descendants %}
+    {% with xs=x|grandpa:hug %}<div class="col hide-on-small-only m{{ xs }}"><div class="card small" style="max-height:250px"></div></div><div class="col s12 m{{ xs|add:"-12"|cut:"-" }}">{% endwith %}
+      {% hugrender x %}
+    </div>
+    {% endfor %}
+  </div>
+{% endblock body %}

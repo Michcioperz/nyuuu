@@ -1,0 +1,14 @@
+{% extends "hug/core.html" %}
+{% load hugnet %}
+{% block body %}
+  <h4 class="center">this is</h4>
+  <h2 class="center header">{{ usr.username }}</h2>
+  {% if user != usr %}<p class="center"><a class="btn waves-effect" href="{% url "do_hug" usr.username %}">Send a hug</a></p>{% endif %}
+  <div class="row">
+  {% for hug in hugs %}
+    <div class="col s12 m6 l3">
+      {% hugrender hug %}
+    </div>
+  {% endfor %}
+  </div>
+{% endblock body %}

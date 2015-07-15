@@ -1,0 +1,9 @@
+Welcome to nyuuu.ovh!
+
+We're glad to have you here! Visit this link to activate your account:
+
+https://nyuuu.ovh{% url "registration_activate" activation_key %}
+
+Have a nice day! <3
+
+Hug Team at Michinom Industries

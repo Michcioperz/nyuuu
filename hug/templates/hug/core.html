@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>nyuuu.ovh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+      .card .card-title a { color: white; }
+      .card.small { height: 250px; }
+      .card.small .card-content { height: 100%; }
+      .card .card-content a { color: white; }
+      .card .card-action a { color: white; }
+      .card .card-action a:hover { color: black; }
+      .pastelback1 { background-color: #1b85b8; }
+      .pastelback2 { background-color: #03c03c; }
+      .pastelback3 { background-color: #559e83; }
+      .pastelback4 { background-color: #ae5a41; }
+      .pastelback5 { background-color: #c3cb71; }
+      .pastelback6 { background-color: #c23b22; }
+      .pastelback7 { background-color: #ffb347; }
+      .pastelback8 { background-color: #f49ac2; }
+      .pastelback9 { background-color: #dea5a4; }
+      .pastelback10 { background-color: #e3e387; }
+      .pastelback11 { background-color: #77dd77; }
+      .pastelback12 { background-color: #b19cd9; }
+      .pastelback13 { background-color: #ffd1dc; }
+      .pastelback14 { background-color: #779ecb; }
+      .pastelback15 { background-color: #cb99c9; }
+      .pastelback16 { background-color: #966fd6; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="{% url "index" %}" class="brand-logo center">nyuuu.ovh</a>
+        <ul class="right hide-on-small-only">
+          <li{% if user.is_authenticated %} class="hide-on-med-and-down"{% endif %}><a>hugs-based social network</a></li>
+          {% if user.is_authenticated %}<li><a href="{% url "auth_logout" %}">{{ user.username }} (log out)</a></li>{% endif %}
+        </ul>
+      </div> 
+    </nav>
+    <div class="section">
+      {% block body %}{% endblock body %}
+    </div>
+    <footer class="page-footer">
+      <div class="container white-text">
+        Written by Michcioperz. Powered by Debian, Nginx, Gunicorn, Django, Materialize and, most importantly, hugs! &lt;3
+      </div>
+    </footer>
+    {% if messages %}
+    <script>
+      $(document).ready(function() {
+        {% for message in messages %}
+        Materialize.toast("{{ message }}", 4000);
+        {% endfor %}
+      });
+    </script>
+    {% endif %}
+  </body>
+</html>

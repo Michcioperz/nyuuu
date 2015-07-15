@@ -1,0 +1,10 @@
+{% load hugnet %}
+<p><strong>{{ user | hugcheck }}, welcome to nyuuu.ovh!</strong></p>
+
+<p>We're glad to have you here! Visit this link to activate your account:</p>
+
+<a href="https://nyuuu.ovh{% url "registration_activate" activation_key %}">https://nyuuu.ovh{% url "registration_activate" activation_key %}</a>
+
+<p>Have a nice day! <3</p>
+
+<p><em>Hug Team at Michinom Industries</em></p>

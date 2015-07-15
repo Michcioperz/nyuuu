@@ -1,0 +1,2 @@
+{% load hugnet %}
+<a href="{% url "user" hug.source.username %}">{{ hug.source.username }}</a> {% if hug.inspiration.target == hug.target %}re{% endif %}hugged {% if hug.target == hug.source %}self{% else %}<a href="{% url "user" hug.target.username %}">{{ hug.target.username }}</a>{% endif %}{% if hug.inspiration.source == hug.target %} back{% endif %}{% if hug.inspiration %} after {{ hug.inspiration | inspiron }}

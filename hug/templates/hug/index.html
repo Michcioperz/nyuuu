@@ -1,0 +1,58 @@
+{% extends "hug/core.html" %}
+{% load hugnet %}
+{% block body %}
+  <div class="row">
+    <div class="col s12 m4 l3" id="firstBox">
+      <div class="card brown small" style="max-height:250px">
+        <div class="card-content" style="height: 100%">
+        {% if request.user.is_authenticated %}
+          <h6 class="header">Hi, {{ request.user }}</h6>
+          <a class="btn waves-effect" href="{% url "auth_logout" %}">Log out</a>
+          <a class="btn waves-effect" href="{% url "settings" %}">Settings</a>
+          <form method="GET" action="{% url "do_hug_r" %}">
+            <div class="row">
+              <div class="input-field col s10">
+                <input type="text" class="validate typeahead" id="name" name="name">
+                <label class="active" for="name">Who to hug?</label>
+              </div>
+              <div class="input-field col s2">
+                <button type="submit" name="action" class="btn-floating waves-effect">Hug!</button>
+              </div>
+            </div>
+          </form>
+        {% else %}
+          <a class="btn waves-effect" href="{% url "auth_login" %}">Log in</a> <a class="btn waves-effect" href="{% url "registration_register" %}">Register</a>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  {% for hug in hugs %}
+    <div class="col s12 m4 l3">
+      {% hugrender hug %}
+    </div>
+  {% endfor %}
+  </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+<script>
+  var engine = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: {{ userson|safe }}
+  });
+  $('.typeahead').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 1
+  },{
+    name: 'users',
+    source: engine
+  });
+</script>
+<script src="//js.pusher.com/2.2/pusher.min.js"></script>
+<script>
+  var pusher = new Pusher('f45e891a83082408584b', { encrypted: true });
+  pusher.subscribe('nyuuu').bind('hug', function(data) {
+    $("<div></div>").hide().addClass("col s12 m4 l3").load("/"+data.id, function(){ $(this).insertAfter("#firstBox").fadeIn(); });
+  });
+</script>
+{% endblock body %}
