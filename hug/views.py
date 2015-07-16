@@ -131,7 +131,7 @@ class HugsFeed(Feed):
     def item_link(self, item):
         return reverse("history", args=(item.pk,))
     def item_guid(self, item):
-        return item.pk
+        return "%i" % item.pk
     def item_pubdate(self, item):
         return item.timestamp
 
